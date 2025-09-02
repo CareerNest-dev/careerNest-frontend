@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import button from '../components/ui/button.jsx';
 import Card from '../components/ui/card.jsx';
 import internpic from '../assets/internpic.png';
+import teamcollab from '../assets/teamcollab.jpg';
+import cvgen from '../assets/cvgen.jpg';
 
 
 const LandingPage = () => {
@@ -86,9 +88,9 @@ const LandingPage = () => {
               get personalized guidance from industry mentors — all in one place.
             </p>
             
-            <button className="bg-gradient-to-r from-purple-500 to-purple-400 text-white font-semibold px-8 py-3 rounded-lg hover:from-purple-600 hover:to-purple-500 transition-all duration-200">
+            <Link to="/dashboard" className="inline-block bg-gradient-to-r from-purple-500 to-purple-400 text-white font-semibold px-8 py-3 rounded-lg hover:from-purple-600 hover:to-purple-500 transition-all duration-200">
               GET STARTED →
-            </button>
+            </Link>
           </div>
         </section>
 
@@ -140,9 +142,9 @@ const LandingPage = () => {
             </div>
 
             <div className="text-center">
-              <button class="bg-gradient-to-r from-purple-500 to-purple-400 text-white font-semibold px-8 py-3 rounded-lg hover:from-purple-600 hover:to-purple-500 transition-all duration-200">
+              <Link to="/dashboard" className="inline-block bg-gradient-to-r from-purple-500 to-purple-400 text-white font-semibold px-8 py-3 rounded-lg hover:from-purple-600 hover:to-purple-500 transition-all duration-200">
                 FIND YOUR INTERNSHIP
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -179,7 +181,7 @@ const LandingPage = () => {
                 </p>
               </div>
 
-              <div className="flex space-x-4">
+              {/* <div className="flex space-x-4">
                 <div className="bg-careernest-primary text-white px-4 py-2 rounded-md font-bold">
                   +100
                 </div>
@@ -189,13 +191,13 @@ const LandingPage = () => {
                 <div className="bg-careernest-accent text-white px-4 py-2 rounded-md font-bold">
                   +025
                 </div>
-              </div>
+              </div> */}
             </div>
             
             <div className="relative">
               <div className="bg-careernest-light rounded-lg p-8">
                 <img 
-                  src="/api/placeholder/400/300" 
+                  src={teamcollab} 
                   alt="Team collaboration"
                   className="w-full h-auto rounded-lg"
                 />
@@ -220,7 +222,7 @@ const LandingPage = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Card.Card key={index} hover className="text-center">
+              <Card.Card key={index} hover className="text-center p-3">
                 <div className="w-16 h-16 bg-careernest-primary rounded-lg flex items-center justify-center mx-auto mb-4">
                   <i className={`${service.icon} text-white text-2xl`}></i>
                 </div>
@@ -250,7 +252,7 @@ const LandingPage = () => {
               </p>
               
               <div className="space-y-4 mb-8">
-                <div className="flex items-start space-x-3">
+                <div className="flex items-start space-x-3 p-3">
                   <div className="w-6 h-6 bg-careernest-primary rounded-full flex items-center justify-center mt-1">
                     <i className="fas fa-check text-white text-xs"></i>
                   </div>
@@ -291,15 +293,15 @@ const LandingPage = () => {
                 </div>
               </div>
 
-              <button variant="primary">
+              {/* <button variant="primary">
                 GENERATE CV
-              </button>
+              </button> */}
             </div>
             
             <div className="relative">
               <div className="bg-careernest-light rounded-lg p-8">
                 <img 
-                  src="/api/placeholder/400/500" 
+                  src={cvgen}
                   alt="CV Generator"
                   className="w-full h-auto rounded-lg"
                 />

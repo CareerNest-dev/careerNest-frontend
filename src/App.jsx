@@ -7,6 +7,7 @@ import DashboardLayout from './components/DashboardLayout';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import ServicePage from './pages/ServicePage';
 import RegisterPage from './pages/RegisterPage';
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
           <Route path="about" element={<AboutPage/>} />
+          <Route path="contact" element={<ContactPage/>} />
           <Route path="service" element={<ServicePage/>} />
           <Route path="/chatbot" element={<Chatbot/>} />
           {/* <Route path="faq" element={<div>FAQ Page</div>} /> */}

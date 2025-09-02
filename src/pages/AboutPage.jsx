@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import internpic from '../assets/internpic.png';
 
 const TeamMember = ({ name, role, image }) => (
   <div className="text-center">
@@ -22,22 +23,22 @@ const AboutPage = () => {
     {
       name: "Sarah Johnson",
       role: "Founder & CEO",
-      image: "/api/placeholder/150/150"
+      image: "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     },
     {
       name: "Michael Chen",
       role: "Chief Technology Officer",
-      image: "/api/placeholder/150/150"
+      image: "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     },
     {
       name: "Emily Rodriguez",
       role: "Head of Operations",
-      image: "/api/placeholder/150/150"
+      image: "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     },
     {
       name: "David Kim",
       role: "Lead Developer",
-      image: "/api/placeholder/150/150"
+      image: "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     }
   ];
 
@@ -103,7 +104,7 @@ const AboutPage = () => {
             <div className="relative">
               <div className="bg-purple-100 rounded-lg p-8">
                 <img 
-                  src="/api/placeholder/500/400" 
+                  src={internpic}
                   alt="Our Mission"
                   className="w-full h-auto rounded-lg shadow-lg"
                 />

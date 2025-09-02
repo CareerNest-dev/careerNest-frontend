@@ -77,21 +77,21 @@ const ServicePage = () => {
       name: "Alex Chen",
       role: "Software Engineering Intern",
       company: "Tech Corp",
-      image: "/api/placeholder/100/100",
+      image: "https://randomuser.me/api/portraits/women/17.jpg",
       text: "CareerNest helped me land my dream internship. The resume builder and mentorship program were game-changers!"
     },
     {
       name: "Sarah Johnson",
       role: "Marketing Associate",
       company: "Brand Solutions",
-      image: "/api/placeholder/100/100",
+      image: "https://randomuser.me/api/portraits/men/44.jpg",
       text: "The skills development courses gave me the edge I needed in my interviews. Highly recommend!"
     },
     {
       name: "Michael Lee",
       role: "Data Science Intern",
       company: "Analytics Pro",
-      image: "/api/placeholder/100/100",
+      image: "https://randomuser.me/api/portraits/men/82.jpg",
       text: "The mentorship program provided invaluable insights and helped me navigate my career path."
     }
   ];

@@ -41,6 +41,13 @@ const Header = () => {
             >
               SERVICE
             </Link>
+
+            <Link 
+              to="/contact" 
+              className="text-gray-700 hover:text-careernest-primary transition-colors duration-200 font-bold"
+            >
+              CONTACT
+            </Link>
             {/* <Link 
               to="/faq" 
               className="text-gray-700 hover:text-careernest-primary transition-colors duration-200 font-bold"

@@ -42,7 +42,7 @@ api.interceptors.response.use(
 // API endpoints
 export const updateUserProfile = async (formData) => {
   try {
-    const response = await api.put('/update/userupdate', formData, {
+    const response = await api.post('/update/userupdate', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // Important for file upload
       },
