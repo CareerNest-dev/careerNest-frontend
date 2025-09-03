@@ -1,21 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isAuthenticated, getUserRole } from '../utils/auth';
+import { isAuthenticated, getUserRole, getUserId, getAuthToken } from '../utils/auth';
+import axios from 'axios';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [scheduledSessions, setScheduledSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Redirect to login if not authenticated
     if (!isAuthenticated()) {
       navigate('/login');
+      return;
     }
+
+    const fetchMeetings = async () => {
+      try {
+        const userId = getUserId();
+        const token = getAuthToken();
+        
+        const response = await axios.get(
+          'http://carrernest-nodejs-alb-1673428613.ap-south-1.elb.amazonaws.com/api/mentor/meeting/fetchtmeeting',
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+
+        if (response.data && Array.isArray(response.data)) {
+          setScheduledSessions(response.data);
+        } else {
+          setScheduledSessions([]);
+        }
+      } catch (err) {
+        console.error('Error fetching meetings:', err);
+        setError('Failed to load scheduled meetings');
+        setScheduledSessions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMeetings();
   }, [navigate]);
-  const scheduledSessions = [
-    { id: 1, placeholder: true },
-    { id: 2, placeholder: true },
-    { id: 3, placeholder: true }
-  ];
 
   const suggestedInternships = [
     {
@@ -71,16 +102,75 @@ const Dashboard = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-6">
-          {scheduledSessions.map((session) => (
-            <div key={session.id} className="bg-white rounded-lg shadow-sm p-6 h-48 flex items-center justify-center border-2 border-dashed border-blue-600 bg-gray-50">
-              <div className="text-center text-gray-400">
-                <svg className="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <p className="text-sm">No sessions scheduled</p>
+          {loading ? (
+            // Loading state
+            <div className="col-span-3 text-center py-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+              <p className="mt-4 text-gray-600">Loading scheduled meetings...</p>
+            </div>
+          ) : error ? (
+            // Error state
+            <div className="col-span-3 text-center py-8 text-red-600">
+              <p>{error}</p>
+            </div>
+          ) : scheduledSessions.length === 0 ? (
+            // Empty state
+            <div className="col-span-3">
+              <div className="bg-white rounded-lg shadow-sm p-6 h-48 flex items-center justify-center border-2 border-dashed border-blue-600">
+                <div className="text-center text-gray-400">
+                  <svg className="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm">No sessions scheduled</p>
+                </div>
               </div>
             </div>
-          ))}
+          ) : (
+            // Display meetings
+            scheduledSessions.map((session) => (
+              <div key={session._id || session.id} className="bg-white rounded-lg shadow-sm p-6">
+                <div className="flex flex-col h-full">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      {session.title || 'Mentoring Session'}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-2">
+                      {new Date(session.dateTime || session.date).toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Time: {new Date(session.dateTime || session.date).toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                  </div>
+                  
+                  <div className="mt-auto">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500">
+                        Status: <span className="font-medium text-blue-600">{session.status || 'Scheduled'}</span>
+                      </span>
+                      {session.meetingLink && (
+                        <a
+                          href={session.meetingLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                        >
+                          Join Meeting →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 

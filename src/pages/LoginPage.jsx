@@ -139,20 +139,23 @@ const LoginPage = () => {
           role: formData.role,
         }),
       });
-
+ 
       const data = await response.json();
+
+      console.log('Login response data:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
       }
 
       // Store auth data in cookies
-      const token = data.token;
-      const role = data.user?.role || formData.role;
-      setAuthCookies(token, role);
+      const token = data.newToken;
+      const role = data.User.role || formData.role;
+      const id = data.User.id;
+      setAuthCookies(token, role,id);
 
       // Navigate to dashboard
-      navigate('/dashboard');
+      navigate('/dashboard'); 
       
     } catch (err) {
       setError(err.message || 'Login failed. Please check your credentials and try again.');

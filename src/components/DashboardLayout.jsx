@@ -37,7 +37,7 @@ const DashboardLayout = ({ children }) => {
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 rounded-full bg-gray-300 mb-4 overflow-hidden">
                 <img 
-                  src="/api/placeholder/128/128" 
+                  src="https://randomuser.me/api/portraits/men/87.jpg" 
                   alt="Profile" 
                   className="w-full h-full object-cover"
                 />
